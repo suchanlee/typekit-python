@@ -133,7 +133,6 @@ class Typekit(object):
 			url += 'kits/{}/publish'.format(kit_id)
 
 		url += '?token={}'.format(self.api_token)
-		print url
 		return url
 
 

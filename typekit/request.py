@@ -12,7 +12,6 @@ def make_request(method, url, params=None):
 
 	if params is not None:
 		data = urllib.urlencode(params, True)
-		print data
 
 	if method == 'GET':
 		res = requests.get(url, headers=headers)
