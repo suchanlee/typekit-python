@@ -6,6 +6,7 @@ This is a (minimal) Python module that implements the Typekit developers API. It
 There is currently no support for:
 - Retrieving library and family information
 - Pip installation
+
 But they are on the roadmap.
 
 ## Usage
