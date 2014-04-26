@@ -5,16 +5,15 @@ This is a (minimal) Python module that implements the Typekit developers API. It
 
 There is currently no support for:
 - Retrieving library and family information
-- Pip installation
 
 But they are on the roadmap.
 
 ## Usage
 
-Currently, there is no support for Pip installation. For now, you can use it by cloning the repository.
+Install the library using pip:
 
 ```
-git clone git@github.com:suchanlee/typekit-python.git
+pip install typekit
 ```
 
 Initialize the client with your developer API token. You can get your API token [here](https://typekit.com/account/tokens). All method calls return the JSON representation of the return from calling the Typekit API.
