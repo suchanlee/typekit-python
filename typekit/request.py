@@ -1,6 +1,9 @@
 import urllib
 
-import requests
+try:
+	import requests
+except ImportError:
+	pass
 
 from _version import __version__
 

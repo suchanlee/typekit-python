@@ -1,7 +1,6 @@
 
-from request import make_request
+from .request import make_request
 
-import pdb
 
 class Typekit(object):
 
