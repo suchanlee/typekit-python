@@ -120,7 +120,35 @@ class Typekit(object):
 		return make_request('POST', url, {})
 
 
-	def build_url(self, method, kit_id=None):
+	def get_font_family(self, font):
+		"""
+		Retrieves font information from Typekit.
+		Can use either font_slug or font_id. The font slug must
+		be a slug for it to work, so slugify your input before using it.
+		"""
+		url = self.build_url('families', font=font)
+		return make_request('GET', url)
+
+
+	def get_font_variations(self, font):
+		"""
+		Retrieves all variations of the font family.
+		If font does not exist, returns False
+		"""
+		font_json = self.get_font_family(font)
+
+		try:
+			variations = []
+			for var in font_json.get('family').get('variations'):
+				variations.append(var.get('fvd'))
+		except Exception:
+			print 'Font does not exist!'
+			return False
+
+		return variations
+
+
+	def build_url(self, method, kit_id=None, font=None):
 		url = self.scheme + self.host
 
 		if method == 'list' or method == 'create':
@@ -131,6 +159,9 @@ class Typekit(object):
 
 		if method == 'publish':
 			url += 'kits/{}/publish'.format(kit_id)
+
+		if method == 'families':
+			url += 'families/{}'.format(font)
 
 		url += '?token={}'.format(self.api_token)
 		return url
