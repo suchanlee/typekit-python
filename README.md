@@ -1,12 +1,7 @@
 typekit-python
 ==============
 
-This is a (minimal) Python module that implements the Typekit developers API. It allows you to create, retrieve, delete, update, and publish Typekit kits in Python. 
-
-There is currently no support for:
-- Retrieving library and family information
-
-But they are on the roadmap.
+This is a Python module that implements the Typekit developers API. It allows you to create, retrieve, delete, update, and publish Typekit kits in Python. You can also get information about a font family and the possible variations of a given font family.
 
 ## Usage
 
@@ -88,3 +83,34 @@ To publish a kit, use the method `publish_kit(kit_id)`. The `kit_id` field is re
 ```
 tk.publish_kit(kit_id='<kit_id>')
 ```
+
+### Get font family
+
+To retrieve information regarding a given font family, use the method `get_font_family(font)`. The argument `font` is a string and can be a Typekit font id or a slug of the font as named in Typekit. The method does not slugify the input, so make sure to slugify it before entering the argument.
+
+```
+tk.get_font_family('<font_id>')
+```
+
+### Get font variations
+
+To retrieve all possible variations of a given font, use the method `get_font_variations(font)`. The argument is the same as for `get_font_family(font)`. This method returns a Python list of all possible variations of the font.
+
+```
+variations = tk.get_font_variations('futura-pt') # using font slug
+
+or
+
+variations = tk.get_font_variations('ftnk') # using font id
+
+OUTPUT:
+[u'n3', u'i3', u'n4', u'i4', u'n5', u'i5', u'n7', u'i7', u'n8', u'i8']
+
+```
+
+
+
+
+
+
+
