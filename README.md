@@ -126,6 +126,15 @@ To add font to kit, use the method `kit_remove_font(kit_id, font)`. Arguments fo
 tk.kit_remove_font('kit_id', 'futura-pt')
 ```
 
+### Other methods
+
+`get_kit_vals(kit_id)` - Retrieves kit vals in a list of format: [name, domains, families, badge]
+
+`get_kit_fonts(kit_id)` - Retrieves a list of font ids in a given kit
+
+`kit_contains_font(kit_id, font)` - Checks to see if a font exists in a kit.
+
+
 
 ## Licence
 
