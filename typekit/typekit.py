@@ -28,14 +28,14 @@ class Typekit(object):
 		Returns a json representation of the kits associated with this
 		api token
 		"""
-		return make_request('GET', self.build_url(method='list')).get('kits')
+		return make_request('GET', self.__build_url(method='list')).get('kits')
 
 
 	def get_kit(self, kit_id):
 		"""
 		Returns an existing kit of given id (including unpublished ones)
 		"""
-		url = self.build_url('get', kit_id=kit_id)
+		url = self.__build_url('get', kit_id=kit_id)
 		kit = make_request('GET', url)
 		if 'errors' in kit:
 			raise NoKitFoundException(value='Kit with id "{}" does not exist'.format(kit_id))
@@ -43,7 +43,7 @@ class Typekit(object):
 		return kit
 
 
-	def modify_kit(self, kit_id=None, name=None, domains=None, families=None, badge=False):
+	def __modify_kit(self, kit_id=None, name=None, domains=None, families=None, badge=False):
 		"""
 		Updates or creates a new kit.
 		Kwargs contains the parameters:
@@ -61,7 +61,7 @@ class Typekit(object):
 			params['name'] = name
 
 		if domains is not None:
-			params['domains[]'] = self.get_param_type_list(domains)
+			params['domains[]'] = self.__get_param_type_list(domains)
 		else:
 			params['domains[]'] = self.default_domains
 
@@ -80,9 +80,9 @@ class Typekit(object):
 			params['badge'] = 'true'
 
 		if kit_id is None:
-			url = self.build_url('create')
+			url = self.__build_url('create')
 		else:
-			url = self.build_url('update', kit_id=kit_id)
+			url = self.__build_url('update', kit_id=kit_id)
 
 		return make_request('POST', url, params)
 
@@ -91,21 +91,21 @@ class Typekit(object):
 		"""
 		Completely replaces the existing value with the new value during POST request (Typekit spec)
 		"""
-		return self.modify_kit(kit_id=kit_id, name=name, domains=domains, families=families, badge=badge)
+		return self.__modify_kit(kit_id=kit_id, name=name, domains=domains, families=families, badge=badge)
 
 
 	def create_kit(self, name, domains, families=None, badge=False):
 		"""
 		Creates an existing kit
 		"""
-		return self.modify_kit(name=name, domains=domains, families=families, badge=badge)
+		return self.__modify_kit(name=name, domains=domains, families=families, badge=badge)
 
 
 	def remove_kit(self, kit_id):
 		"""
 		Removes an existing kit.
 		"""
-		url = self.build_url('delete', kit_id=kit_id)
+		url = self.__build_url('delete', kit_id=kit_id)
 		return make_request('DELETE', url, {})
 
 
@@ -113,7 +113,7 @@ class Typekit(object):
 		"""
 		Publishes an existing kit.
 		"""
-		url = self.build_url('publish', kit_id=kit_id)
+		url = self.__build_url('publish', kit_id=kit_id)
 		return make_request('POST', url, {})
 
 
@@ -123,7 +123,7 @@ class Typekit(object):
 		Can use either font_slug or font_id. The font slug must
 		be a slug for it to work, so slugify your input before using it.
 		"""
-		url = self.build_url('families', font=font)
+		url = self.__build_url('families', font=font)
 		font_response = make_request('GET', url)
 
 		if 'errors' in font_response:
@@ -248,7 +248,7 @@ class Typekit(object):
 		return [family.get('id') for family in kit.get('kit').get('families')]
 
 
-	def build_url(self, method, kit_id=None, font=None):
+	def __build_url(self, method, kit_id=None, font=None):
 		url = self.scheme + self.host
 
 		if method == 'list' or method == 'create':
@@ -267,7 +267,7 @@ class Typekit(object):
 		return url
 
 
-	def get_param_type_list(self, param, param_name=None):
+	def __get_param_type_list(self, param, param_name=None):
 
 		if isinstance(param, list):
 			return param
