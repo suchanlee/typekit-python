@@ -1,7 +1,9 @@
 typekit-python
 ==============
 
-This is a Python module that implements the Typekit developers API. It allows you to create, retrieve, delete, update, and publish Typekit kits in Python. You can also get information about a font family and the possible variations of a given font family.
+This is a Python module that implements the Typekit developers API. It allows you to create, retrieve, delete, update, and publish Typekit kits in Python. You can also get information about a font family and the possible variations of a given font family. It now supports adding and removing font from a kit.
+
+Read the source code if the documentation below isn't enough. It has okay high-level comments for each method.
 
 ## Usage
 
@@ -107,6 +109,32 @@ OUTPUT:
 [u'n3', u'i3', u'n4', u'i4', u'n5', u'i5', u'n7', u'i7', u'n8', u'i8']
 
 ```
+
+### Add font to kit
+
+To add font to kit, use the method `kit_add_font(kit_id, font, variations=None)`. Arguments for this method is the same format as the ones above, BUT variations should be in list. Returns nothing.
+
+```
+tk.kit_add_font('kit_id', 'futura-pt', [n3,n5,n7])
+```
+
+### Remove font from kit
+
+To add font to kit, use the method `kit_remove_font(kit_id, font)`. Arguments for this method is the same format as the ones above, BUT variations should be in list. Returns nothing.
+
+```
+tk.kit_remove_font('kit_id', 'futura-pt')
+```
+
+### Other methods
+
+`get_kit_vals(kit_id)` - Retrieves kit vals in a list of format: [name, domains, families, badge]
+
+`get_kit_fonts(kit_id)` - Retrieves a list of font ids in a given kit
+
+`kit_contains_font(kit_id, font)` - Checks to see if a font exists in a kit.
+
+
 
 ## Licence
 
